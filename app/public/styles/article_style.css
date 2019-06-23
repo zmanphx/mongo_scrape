@@ -1,0 +1,42 @@
+body{
+
+    display: block;
+   
+    font-family: 'Arial', 'Helvetica Neue', Helvetica, sans-serif ;
+    font-weight: 500;
+    font-size: 18px;
+    
+    background-color: rgb(57, 145, 204)
+}
+
+p {
+    
+    word-wrap: break-word;
+  }
+
+
+br{display: block; /* makes it have a width */
+    content: ""; /* clears default height */
+    margin-top: 15px; 
+
+
+}
+
+#inputnote,#inputtitle{width:80%;}
+form{margin-left: 140px;}
+
+.orderlabel, .resetForm,.label{ background-color:grey;
+    color:yellow;
+
+}
+.newBurgerForm{margin-left: 50px;}
+
+.card-text{
+
+    margin-left:25px;
+}
+
+.title{margin-left: 270px;}
+.btn-primary{ width: 100px; 
+margin-bottom: 15px;
+}

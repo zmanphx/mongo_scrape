@@ -1,0 +1,123 @@
+<div class="container">
+    <br>
+
+    <div class="row   align-self-start" id="toprow2">
+
+
+
+
+        <div class="col-md-12" id="newScrape">
+            <div class="card border border-success  orderlabel">
+                <h2 class="title"> Mongo Scrape Articles</h2>
+                <h6 class="title">Mongo.DB Demo , Web Scraping </h6>
+                <form>
+                    <div class="form-group">
+                        <label for="exampleFormControlInput1">Article Title</label>
+                        <input type="text" class="form-control" id="inputtitle" placeholder="title">
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="exampleFormControlTextarea1">Note</label>
+                        <textarea class="form-control" id="inputnote" rows="3"></textarea>
+                        
+                    </div>
+                <button type="submit" class="btn btn-primary">Save Note</button>
+                </form>
+
+            </div>
+
+
+        </div>
+
+        <div class="col-md-2">
+
+        </div>
+
+    </div>
+
+    <br>
+    <div class="row   align-self-start" id="toprow1">
+
+        <div class="col-md-9" id="availableArt">
+
+            <div class="card border border-success  align-items-center label" style="height:115px;">
+                <h1>Listed Articles</h1>
+           <button onclick="window.location='/scrape'" class="btn btn-info" role="button" >Scrape Articles</button>
+            </div>
+            <br>
+            <ul>
+                {{#each article}}
+
+
+                <div class="card border border-success ready" id={{this._id}}>
+                    <div class="card  h-100 mb-4">
+                        <div class="card-block">
+                            <p class="card-text"><span><b>ID: </b> </span>{{this._id}} </p>
+                            <p class="card-text"><span> <b>Article Title:</b></span> {{ this.title}}</p>
+
+
+                            <p class="card-text"><span><b>Article Link:</b></span> <a href="{{this.link}}"
+                                    target="_blank">Link </a>
+
+                                <p class="card-text"><span> <b>blurb:</b></span> {{ this.blurb}}</p>
+                                <button type="button" class="btn btn-info" data-myval="{{this._id}}"" data-mytitle="
+                                    {{ this.title}}">Add Note</button>
+
+                        </div>
+                    </div>
+                </div>
+
+                <br>
+
+                {{/each}}
+            </ul>
+
+        </div>
+
+        <div class="col-md-3" id="savednotes">
+
+
+            <div class="card border border-success  align-items-center label">
+                <h1>Saved Notes</h1>
+
+            </div>
+            <br>
+            <ul>
+
+            </ul>
+
+
+
+
+        </div>
+
+    </div>
+
+    <div class="row   align-self-start" id="toprow3">
+
+        <div class="col-md-2">
+
+
+        </div>
+
+
+        <div class="col-md-8" id="deletediv">
+
+
+        </div>
+
+        <div class="col-md-2">
+
+        </div>
+
+
+    </div>
+
+</div>
+
+
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="/public/app.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.10/handlebars.js"></script>
