@@ -22,7 +22,7 @@
                         <textarea class="form-control" id="inputnote" rows="3"></textarea>
                         
                     </div>
-                <button type="submit" class="btn btn-primary">Save Note</button>
+                <button class="btn btn-primary" id="savenote" data-mongoid="0">Save Note</button>
                 </form>
 
             </div>
@@ -43,7 +43,7 @@
 
             <div class="card border border-success  align-items-center label" style="height:115px;">
                 <h1>Listed Articles</h1>
-           <button onclick="window.location='/scrape'" class="btn btn-info" role="button" >Scrape Articles</button>
+           <button  class="btn btn-info"  id="btnscrape" role="button" >Scrape Articles</button>
             </div>
             <br>
             <ul>
@@ -61,7 +61,7 @@
                                     target="_blank">Link </a>
 
                                 <p class="card-text"><span> <b>blurb:</b></span> {{ this.blurb}}</p>
-                                <button type="button" class="btn btn-info" data-myval="{{this._id}}"" data-mytitle="
+                                <button type="button" class="btn btn-info btnaddtitle" data-myval="{{this._id}}"" data-mytitle="
                                     {{ this.title}}">Add Note</button>
 
                         </div>
