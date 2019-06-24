@@ -6,9 +6,9 @@
 
 
 
-        <div class="col-md-12" id="newScrape">
+        <div class="col-md-10" id="newScrape">
             <div class="card border border-success  orderlabel">
-                <h2 class="title"> Mongo Scrape Articles</h2>
+                <h1 class="title"> Mongo Scrape Articles</h1>
                 <h6 class="title">Mongo.DB Demo , Web Scraping </h6>
                 <form>
                     <div class="form-group">
@@ -20,9 +20,9 @@
                     <div class="form-group">
                         <label for="exampleFormControlTextarea1">Note</label>
                         <textarea class="form-control" id="inputnote" rows="3"></textarea>
-                        
+
                     </div>
-                <button class="btn btn-primary" id="savenote" data-mongoid="0">Save Note</button>
+                    <button class="btn btn-primary" id="savenote" data-mongoid="">Save Note</button>
                 </form>
 
             </div>
@@ -39,11 +39,18 @@
     <br>
     <div class="row   align-self-start" id="toprow1">
 
-        <div class="col-md-9" id="availableArt">
+        <div class="col-md-10 text-center my-auto " id="availableArt">
 
-            <div class="card border border-success  align-items-center label" style="height:115px;">
+            <div class="card border border-success  " style="height:115px;">
+
                 <h1>Listed Articles</h1>
-           <button  class="btn btn-info"  id="btnscrape" role="button" >Scrape Articles</button>
+
+                <div class="button-box">
+                <button class="btn btn-info" id="btnJSONART" role="button">JSON
+                    Articles</button>
+                    <button class="btn btn-info" id="btnJSONnote" role="button">JSON Notes</button>
+
+                </div>
             </div>
             <br>
             <ul>
@@ -61,8 +68,16 @@
                                     target="_blank">Link </a>
 
                                 <p class="card-text"><span> <b>blurb:</b></span> {{ this.blurb}}</p>
-                                <button type="button" class="btn btn-info btnaddtitle" data-myval="{{this._id}}"" data-mytitle="
-                                    {{ this.title}}">Add Note</button>
+
+                             <button type="button" class="btn btn-info btnaddtitle" data-myval="{{this._id}}"
+                                    data-mytitle=" {{ this.title}}">Add Note</button> 
+
+                                <br>
+
+                                <p class="card-text"><span> <b>Note:</b></span>"{{ note.body}}"</p>
+                       <button type="button" class="btn btn-info btndelnote" data-myval="{{note._id}}"
+                                    >Delete Note</button> 
+
 
                         </div>
                     </div>
@@ -75,17 +90,11 @@
 
         </div>
 
-        <div class="col-md-3" id="savednotes">
+        <div class="col-md-2" id="savednotes">
 
 
-            <div class="card border border-success  align-items-center label">
-                <h1>Saved Notes</h1>
 
-            </div>
-            <br>
-            <ul>
 
-            </ul>
 
 
 

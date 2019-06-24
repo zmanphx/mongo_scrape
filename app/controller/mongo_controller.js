@@ -10,7 +10,7 @@ var cheerio = require("cheerio");
 module.exports = function(app) {
   app.get("/", function(req, res) {
     // First, we grab the body of the html with axios
-    console.log("get articles", "I'm here");
+   
     axios
       .get("https://www.washingtonpost.com/")
       .then(function(response) {
@@ -59,8 +59,23 @@ module.exports = function(app) {
             //************************************** */
           })
           .catch(function(err) {
-            // If an error occurred, log it
             console.log(err);
+            // do a find all  because there are duplicates violations
+            
+            db.Article.find({})
+            
+            .populate("note")
+            .then(function(dbArticle) {
+              // If we were able to successfully find Articles, send them back to the client
+              
+              res.render("index", { article: dbArticle });// If an error occurred, log it
+            })
+            .catch(function(err) {
+              // If an error occurred, send it to the client
+              res.json(err);
+            });
+
+
           });
       })
       .catch(function(err) {
@@ -68,6 +83,10 @@ module.exports = function(app) {
         res.json(err);
       })
       .finally(function() {
+          
+
+        
+        
         // always executed
       });
   });
@@ -86,23 +105,53 @@ module.exports = function(app) {
       });
   });
 
-  /*  app.get("/", function(req, res) {
+   // Route for getting all Articles from the db
+   app.get("/notes", function(req, res) {
     // Grab every document in the Articles collection
-
-    res.render("index");
+    db.Note.find({})
+        .then(function(dbNote) {
+          
+      
+          // If we were able to successfully find Articles, send them back to the client
+          res.json(dbNote);
+        })
+        .catch(function(err) {
+          // If an error occurred, send it to the client
+          res.json(err);
+        });
   });
- */
+
+  app.delete("/:id", function(req, res) {
+    // Grab every document in the Articles collection
+   var noteid = req.params.id;
+   console.log("deleting", noteid);
+     
+    db.Note.deleteOne({"_id": noteid})
+        .then(function(dbNote) {
+          
+          console.log("deleting", noteid);
+          // If we were able to successfully find Articles, send them back to the client
+          res.json(dbNote);
+        })
+        .catch(function(err) {
+          // If an error occurred, send it to the client
+          res.json(err);
+        });
+  });
+
+
+ 
   // Route for grabbing a specific Article by id, populate it with it's note
   app.get("/articles/:id", function(req, res) {
     // Using the id passed in the id parameter, prepare a query that finds the matching one in our db...
     event.stopPropagation();
-    console.log("inside post");
+    
     db.Article.findOne({ _id: req.params.id })
       // ..and populate all of the notes associated with it
       .populate("note")
       .then(function(dbArticle) {
         // If we were able to successfully find an Article with the given id, send it back to the client
-        console.log("inside post then");
+      
         res.json(dbArticle);
       })
       .catch(function(err) {
@@ -114,14 +163,18 @@ module.exports = function(app) {
   // Route for saving/updating an Article's associated Note
   app.post("/:id", function(req, res) {
     // Create a new note and pass the req.body to the entry
-    console.log("inside post article note");
+  
+    
+    
     db.Note.create(req.body)
       .then(function(dbNote) {
         // If a Note was created successfully, find one Article with an `_id` equal to `req.params.id`. Update the Article to be associated with the new Note
         // { new: true } tells the query that we want it to return the updated User -- it returns the original by default
         // Since our mongoose query returns a promise, we can chain another `.then` which receives the result of the query
-        console.log("inside post article then");
-
+     
+                  
+              
+       
         return db.Article.findOneAndUpdate(
           { _id: req.params.id },
           { note: dbNote._id },
@@ -129,8 +182,12 @@ module.exports = function(app) {
         );
       })
       .then(function(dbArticle) {
+   
+   
         // If we were able to successfully update an Article, send it back to the client
-        res.json(dbArticle);
+      
+       
+       // res.json(dbArticle);
       })
       .catch(function(err) {
         // If an error occurred, send it to the client

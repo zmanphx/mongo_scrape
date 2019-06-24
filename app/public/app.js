@@ -1,33 +1,54 @@
 $(document).ready(function() {
   // Grab the articles as a json
-  
-
 
   $(document).on("click", "#btnscrape", function(event) {
     //user select which article to add note to.
     event.preventDefault();
     event.stopPropagation();
-   
+
     $.ajax({
       method: "GET",
-      url: "/",
-     
+      url: "/"
     })
       // With that done
       .then(function(data) {
         // Log the response
         console.log(data);
         // Empty the notes section
-       
       });
-   
-   
-   
   });
+
+// delete note
+
+$(document).on("click", ".btndelnote", function(event) {
+  //user select which article to add note to.
+ 
+  event.preventDefault();
+  event.stopPropagation();
+  var id = $(this)
+    .data("myval")
+    .trim();
+  
+console.log("noteid", id);
+
+$.ajax({
+  method: "DELETE",
+  url: "/" + id
+})
+  // With that done
+  .then(function(data) {
+    // Log the response
+    console.log("Get Notes");
+    console.log(data);
+  });
+
+});
+
 
 
   $(document).on("click", ".btnaddtitle", function(event) {
     //user select which article to add note to.
+    window.location.href = "#toprow2";
     event.preventDefault();
     event.stopPropagation();
     var id = $(this)
@@ -37,26 +58,33 @@ $(document).ready(function() {
       .data("mytitle")
       .trim();
 
-    $("#inputtitle:text")
-      .val(title);
-      
-    $("#savenote").data("data-mongoid", id);
+    $("#inputtitle:text").val(title);
+
+    $("#savenote").data("mongoid", id);
   });
 
-  $( "#savenote" ).unbind( "click" );
+  $("#btnJSONART").on("click", function() {
+    window.location = "/articles";
+  });
+
+  $("#btnJSONnote").on("click", function() {
+    window.location = "/notes";
+  });
+
+  $("#savenote").unbind("click");
   $("#savenote").on("click", function() {
     // saving  the note to the article and creating note record in mongo
     event.preventDefault();
     event.stopPropagation();
-     console.log("saved button ");
- 
-    let mongoid = $(this).data("mongoid");
-     console.log(mongoid);
+
+    let mongoid = $("#savenote").data("mongoid");
+    console.log("My mongoid", mongoid);
     $.ajax({
       method: "POST",
       url: "/" + mongoid,
       data: {
         // Value taken from title input
+        id: mongoid,
         title: $("#inputtitle").val(),
         // Value taken from note textarea
         body: $("#inputnote").val()
@@ -69,39 +97,22 @@ $(document).ready(function() {
         // Empty the notes section
         $("#inputnote").empty();
       });
-     
-      $("#inputtitle").val("");
-      $("#inputnote").val("");
 
+    $("#inputtitle").val("");
+    $("#inputnote").val("");
 
-  });
-
-  // When you click the savenote button
-  /* $(document).on("click", "#2savenote", function() {
-    // Grab the id associated with the article from the submit button
-    var thisId = $(this).attr("data-id");
-
-    // Run a POST request to change the note, using what's entered in the inputs
+    //************************Get the Notes */
     $.ajax({
-      method: "POST",
-      url: "/articles/" + thisId,
-      data: {
-        // Value taken from title input
-        title: $("#titleinput").val(),
-        // Value taken from note textarea
-        body: $("#bodyinput").val()
-      }
+      method: "GET",
+      url: "/notes"
     })
       // With that done
       .then(function(data) {
         // Log the response
+        console.log("Get Notes");
         console.log(data);
-        // Empty the notes section
-        $("#notes").empty();
       });
+  });
 
-    // Also, remove the values entered in the input and textarea for note entry
-    $("#titleinput").val("");
-    $("#bodyinput").val("");
-  }); */
+ 
 });
