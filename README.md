@@ -1,6 +1,7 @@
 # mongo_scrape
 Mongo Scrape  - Node.js Mongo.db application in MVC model layout.
-
+ 
+ Deployed on Heroku :  https://floating-coast-43816.herokuapp.com/
 The application will peform a web scrape of headlines from the  "www.washington.post" website. When the application is first started, the server will attempt to scrape articles from the news site using  NPM axios .  NPM Cheerios is used to select the specfied DOM elements tags.
 
 A JSON object is built from the result of the scrape which is then used to do a bulk insert into a mongo.db database. The NPM Mongoose is used to connect to the mongo.db database and peform the various  querying routines. 
